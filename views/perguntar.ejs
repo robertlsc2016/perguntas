@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+    <body style="margin-top: 10vh;">
+
+        <%- include ('partials/navbar') %>
+            <div class="container">
+                <div class="card" id="formulario-pergunta">
+                    <div class="card-header">
+                        <h3>Realizar Pergunta</h3>
+
+                    </div>
+
+                    <div class="card-body">
+                        <form  method="POST" action="/salvarpergunta"> 
+                            <label for="">Título</label>
+                            <input type="text" class="form-control" name="title" required>
+                            <br>
+                            <label for="">Descrição</label>
+                            <textarea placeholder="escreva sua pergunta aqui" class="form-control" name="description" required></textarea>
+                            <br>
+                            <button class="btn btn-dark">Perguntar</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            
+    </body>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,104 @@
+<%- include('partials/header') %>
+
+    <body style="overflow-y: scroll; margin-top: 10vh;">
+        <%- include ('partials/navbar') %>
+
+            <div class="container" id="container-pergunta">
+                <div class="card-header">
+                    <h2>
+                        <%=dadosPergunta.title%>
+                    </h2>
+                </div>
+
+                <div class="card-body d-flex justify-content-start align-items-center">
+                    <p style="margin: 0;">
+                        <%=dadosPergunta.description%>
+                    </p>
+                </div>
+                <hr style="margin-top: 0;">
+
+                <div class="container">
+                    <h3>Respostas:</h3>
+                </div>
+
+
+                <%if(dadosResposta.length > 0) {%>
+
+                    <%dadosResposta.forEach(dadosResposta => { %>
+                        <br>
+                        <div class="card border-dark">
+    
+                            <div class="card-body">
+        
+                                <div class="container row">
+                                    <p  style="margin: 0; font-size: 1.5rem">
+                                        <%=dadosResposta.body%>
+                                    </p>
+                                </div>
+        
+                                <div class="container row">
+                                    <p style="margin: 4% 0 0 0; color: gray; font-size: 0.7rem;">
+                                        <%=dadosResposta.autorResposta%>
+                                    </p>
+                                </div>
+        
+        
+        
+                            </div>
+        
+                        </div>
+    
+                    <% }) %>
+
+                <%} else{ %>
+                    <div class="d-flex justify-content-center align-items-center container">
+                        <h3>Nehuma resposta foi publicada</h3>
+
+                    </div>
+                <%}%>
+
+
+
+
+
+
+                <div class="fixed-bottom bg-dark d-flex justify-content-center align-items-center col-12"
+                    id="enviarResposta">
+
+                    <form class="container  d-flex justify-content-between align-items-end" id="envResp-container"
+                        method="POST" action='/enviarreposta'>
+
+                        <div class="container">
+
+                            <div class="input-group" id="input-group-name">
+                                <span class="d-flex justify-content-center align-items-center input-group-text col-4">Nome</span>
+
+                                <input type="text" class="form-control" name="autorResposta" required >
+                            </div>
+
+
+                            <div class="input-group">
+                                <span class="d-flex input-group-text col-2 justify-content-center align-items-center"
+                                    id="span-input" >Resposta</span>
+                                <textarea class="form-control" style="resize: none" name="response" required></textarea>
+                            </div>
+
+
+                            <input type="hidden" value="<%=dadosPergunta.id%>" name="perguntaID">
+                        </div>
+
+                        <div>
+
+                            <button class="btn btn-success" id="envRespTextArea-btn">Enviar Resposta</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+
+    </body>
+
+    <%- include('partials/footer') %>

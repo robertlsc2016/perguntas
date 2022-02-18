@@ -1,0 +1,24 @@
+*{
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #eceff1;
+}
+
+
+
+#input-group-name{
+    margin-bottom: 10px;
+    width: 50%;
+}
+
+#enviarResposta{
+    height: 20vh;
+}
+
+#container-pergunta{
+    margin-bottom: 25vh;
+
+}
