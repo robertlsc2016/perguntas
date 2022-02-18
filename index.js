@@ -40,9 +40,22 @@ app.get('/', (req, res) => {
             ['id', 'DESC']
         ]
     }).then((perguntas) => {
-        res.render('index', {
-            perguntas: perguntas
+
+        Respostas.findAll({raw: true, order: [
+            ['id', 'DESC']
+        ] })
+        .then((dadosResposta) => {
+            res.render('index', {
+                perguntas: perguntas,
+                respostas : dadosResposta
+            })
+
+            // console.log(dadosResposta)
         })
+
+
+
+
     })
 
 })
@@ -64,7 +77,9 @@ app.get('/pergunta/:id', (req, res) => {
 
 
 
-                Respostas.findAll({ where: { perguntaID : id } })
+                Respostas.findAll({ order: [
+                    ['id', 'DESC']
+                ], where: { perguntaID : id } })
                 .then((dadosResposta) => {
 
                     if(dadosResposta){
@@ -72,6 +87,7 @@ app.get('/pergunta/:id', (req, res) => {
                         res.render('pergunta', {
                             dadosPergunta: dadosPergunta,
                             dadosResposta : dadosResposta
+
                             
                         })
 

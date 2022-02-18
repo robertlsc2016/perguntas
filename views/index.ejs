@@ -22,13 +22,40 @@
                     <div class="card">
                         <div class="card-body">
                             
+                            <div class=" position-absolute" style="right: 0;  top:0; margin : 10px 10px 0 0;  text-align: center; border-radius: 100%; width: 25px; height: 25px; background-color: green;">
+                                <p style="color: white;">                                    
+                                    <%let cont = 0%>
+    
+                                    <%respostas.forEach(resposta => { %>
+    
+                                        <%if(resposta.perguntaID == pergunta.id) {%>
+                                            <%cont++%>
+                                        <%}%>
+    
+                                    <% }) %>
+    
+                                     <%=cont%>
+                                </p>
+                            </div>
+ 
+
                             <a href='pergunta/<%=pergunta.id%>' target="_blank">
 
                                 <h3>
-                                    <%=pergunta.title%>
-                                </h3>
-                            </a>
 
+
+
+                                    <%=pergunta.title%>
+
+
+                                </h3>
+
+
+                            </a>
+                            <p  style="right: 0; top:0; padding : 5px 10px 0 0; color: gray; margin: 0; font-size: 0.7rem;">
+
+                                <%=pergunta.createdAt.toISOString().slice(0,10).split('-').reverse().join('/')%>
+                            </p>
 
                         </div>
                         <div class="card-footer">

@@ -26,11 +26,16 @@
 
                     <%dadosResposta.forEach(dadosResposta => { %>
                         <br>
+                        
                         <div class="card border-dark">
-    
+                            <p class="position-absolute" style="right: 0; top:0; padding : 5px 10px 0 0; color: gray;">
+                                <%=dadosResposta.createdAt.toISOString().slice(0,10).split('-').reverse().join('/')%>
+                            </p>
+
                             <div class="card-body">
-        
+
                                 <div class="container row">
+
                                     <p  style="margin: 0; font-size: 1.5rem">
                                         <%=dadosResposta.body%>
                                     </p>
