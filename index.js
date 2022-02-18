@@ -50,7 +50,6 @@ app.get('/', (req, res) => {
                 respostas : dadosResposta
             })
 
-            // console.log(dadosResposta)
         })
 
 
