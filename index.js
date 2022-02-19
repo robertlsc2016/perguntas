@@ -132,6 +132,7 @@ app.post('/salvarpergunta', (req, res) => {
         name: name
 
     }).then(() => {
+        enviarEmail.notificationQuestion()
         res.redirect('/')
     })
 })
@@ -143,7 +144,7 @@ app.post('/enviarreposta', (req, res) => {
     let perguntaID = req.body.perguntaID
     let autorResposta = req.body.autorResposta
 
-    // 
+    
 
     Respostas.create({
         body: resposta,
