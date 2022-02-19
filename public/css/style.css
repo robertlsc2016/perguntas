@@ -32,17 +32,22 @@ body{
 
 
 @media only screen and (max-width:  540px) {
+    #input-group-name{
+        margin-bottom: 10px;
+        width: 100%;
+    }
     #nome_pergunta, #resposta {
-        font-size: 0.6rem !important;
+        font-size: 1rem !important;
     }
 }
 
 
-@media only screen and (max-width:  480px) {
+/* @media only screen and (max-width:  430px) {
+
     #nome_pergunta, #resposta {
-        font-size: 0.5rem !important;
+        font-size: 1rem !important;
     }
-}
+} */
 
 
 
