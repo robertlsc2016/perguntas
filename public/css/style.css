@@ -22,3 +22,28 @@ body{
     margin-bottom: 25vh;
 
 }
+
+
+@media only screen and (max-width: 768px) {
+     #nome_pergunta, #resposta {
+        font-size: 0.8rem !important;
+    }
+  }
+
+
+@media only screen and (max-width:  540px) {
+    #nome_pergunta, #resposta {
+        font-size: 0.6rem !important;
+    }
+}
+
+
+@media only screen and (max-width:  480px) {
+    #nome_pergunta, #resposta {
+        font-size: 0.5rem !important;
+    }
+}
+
+
+
+
