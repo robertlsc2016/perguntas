@@ -124,7 +124,6 @@ app.post('/salvarpergunta', (req, res) => {
     let description = req.body.description
     let name = req.body.name
     let email = req.body.email
-    let id = req.body.perguntaID
 
     Perguntas.create({
         title: titulo,
@@ -133,7 +132,7 @@ app.post('/salvarpergunta', (req, res) => {
         name: name
 
     }).then(() => {
-        enviarEmail.notificationQuestion(titulo, description, id, name )
+        enviarEmail.notificationQuestion(titulo, description, name )
         res.redirect('/')
     })
 })

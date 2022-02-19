@@ -32,7 +32,7 @@ async function main(emailUser, id) {
 
 }
 
-async function notificationQuestion(title, description, id, name) {
+async function notificationQuestion(title, description, name) {
   let testAccount = await nodemailer.createTestAccount();
 
   let transporter = nodemailer.createTransport({
@@ -55,12 +55,12 @@ async function notificationQuestion(title, description, id, name) {
     `
       <h2>Sr. Robert, fizeram uma pergunta. Que tal verificar?</h2>
       <br>
-      <a href="https://guiaspergunta.herokuapp.com/pergunta/${id}" >https://guiaspergunta.herokuapp.com/pergunta/${id}</a>
+      <a href="https://guiaspergunta.herokuapp.com/" >https://guiaspergunta.herokuapp.com/</a>
       <hr>
       <div>
         <h3>Título : ${title}<h3>
         <p>Autor : ${name}</p>
-        <p>Descrição :${description}</p>
+        <p>Descrição : ${description}</p>
       </div>
 
     `
