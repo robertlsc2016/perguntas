@@ -37,7 +37,7 @@ body{
         width: 100%;
     }
     #nome_pergunta, #resposta {
-        font-size: 1rem !important;
+        font-size: 0.8 !important;
     }
 }
 
