@@ -55,7 +55,7 @@ async function notificationQuestion() {
     `
       <h2>Sr. Robert, fizeram uma pergunta. Que tal verificar?</h2>
       <br>
-      <a>https://guiaspergunta.herokuapp.com/</a>
+      <a href="https://guiaspergunta.herokuapp.com/" >https://guiaspergunta.herokuapp.com/</a>
     `
 
   });
