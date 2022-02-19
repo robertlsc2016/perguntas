@@ -3,7 +3,7 @@
 const { Sequelize } = require('sequelize')
 const connection = require('./database')
 
-const Pergunta = connection.define('pergunta',{
+const Perguntas = connection.define('perguntas',{
     title: {
         type : Sequelize.STRING,
         allowNull : false
@@ -11,8 +11,16 @@ const Pergunta = connection.define('pergunta',{
     description : {
         type : Sequelize.TEXT,
         allowNull : false
+    },
+    email: {
+        type : Sequelize.STRING,
+        allowNull : true
+    },
+    name : {
+        type : Sequelize.STRING,
+        allowNull : false
     }
 }, {})
 
-Pergunta.sync({force : false}).then(() => {})
-module.exports = Pergunta
+Perguntas.sync({force : false}).then(() => {})
+module.exports = Perguntas
