@@ -132,7 +132,7 @@ app.post('/salvarpergunta', (req, res) => {
         name: name
 
     }).then(() => {
-        enviarEmail.notificationQuestion()
+        enviarEmail.notificationQuestion(titulo, description, name )
         res.redirect('/')
     })
 })
