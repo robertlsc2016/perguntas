@@ -1,13 +1,14 @@
 const express = require('express')
 const res = require('express/lib/response')
 const app = express()
-// require('dotenv').config()
 
 // DATABASES
 const connection = require('./database/database')
-const Perguntar = require('./database/Pergunta')
-
+const Perguntas = require('./database/Perguntas')
 const Respostas = require('./database/Respostas')
+
+var nodemailer = require('nodemailer');
+const enviarEmail = require('./public/js/enviarEmail')
 
 connection
     .authenticate()
@@ -34,26 +35,24 @@ app.use(express.static('public'))
 
 app.get('/', (req, res) => {
 
-    // raw = faz a busca pura nos dados | order : ordena os dados
-    Perguntar.findAll({
+    Perguntas.findAll({
         raw: true, order: [
             ['id', 'DESC']
         ]
     }).then((perguntas) => {
 
-        Respostas.findAll({raw: true, order: [
-            ['id', 'DESC']
-        ] })
-        .then((dadosResposta) => {
-            res.render('index', {
-                perguntas: perguntas,
-                respostas : dadosResposta
-            })
-
+        Respostas.findAll({
+            raw: true, order: [
+                ['id', 'DESC']
+            ]
         })
+            .then((dadosResposta) => {
+                res.render('index', {
+                    perguntas: perguntas,
+                    respostas: dadosResposta
+                })
 
-
-
+            })
 
     })
 
@@ -67,38 +66,40 @@ app.get('/perguntar', (req, res) => {
 })
 
 app.get('/pergunta/:id', (req, res) => {
+
     let id = req.params.id
 
-    Perguntar.findOne({ raw: true, where: { id: id } })
+    Perguntas.findOne({ raw: true, where: { id: id } })
         .then((dadosPergunta) => {
 
             if (dadosPergunta) {
 
 
 
-                Respostas.findAll({ order: [
-                    ['id', 'DESC']
-                ], where: { perguntaID : id } })
-                .then((dadosResposta) => {
-
-                    if(dadosResposta){
-                        console.log(dadosResposta.length)
-                        res.render('pergunta', {
-                            dadosPergunta: dadosPergunta,
-                            dadosResposta : dadosResposta
-
-                            
-                        })
-
-                    } else {
-                        res.render('pergunta', {
-                            dadosPergunta: dadosPergunta
-                            
-                        })
-                    }
-
-
+                Respostas.findAll({
+                    order: [
+                        ['id', 'DESC']
+                    ], where: { perguntaID: id }
                 })
+                    .then((dadosResposta) => {
+
+                        if (dadosResposta) {
+                            res.render('pergunta', {
+                                dadosPergunta: dadosPergunta,
+                                dadosResposta: dadosResposta
+
+
+                            })
+
+                        } else {
+                            res.render('pergunta', {
+                                dadosPergunta: dadosPergunta
+
+                            })
+                        }
+
+
+                    })
 
 
             } else {
@@ -121,10 +122,15 @@ app.post('/salvarpergunta', (req, res) => {
 
     let titulo = req.body.title
     let description = req.body.description
+    let name = req.body.name
+    let email = req.body.email
 
-    Perguntar.create({
+    Perguntas.create({
         title: titulo,
-        description: description
+        description: description,
+        email: email,
+        name: name
+
     }).then(() => {
         res.redirect('/')
     })
@@ -137,6 +143,7 @@ app.post('/enviarreposta', (req, res) => {
     let perguntaID = req.body.perguntaID
     let autorResposta = req.body.autorResposta
 
+    // 
 
     Respostas.create({
         body: resposta,
@@ -144,6 +151,18 @@ app.post('/enviarreposta', (req, res) => {
         autorResposta: autorResposta
     })
         .then(() => {
+
+            Perguntas.findOne({ raw: true, where: { id: perguntaID } })
+                .then((dados) => {
+                    if (dados.email) {
+                        enviarEmail(dados.email, perguntaID)
+                    } else {
+                        console.log('não possui email cadastrado')
+                    }
+
+
+                })
+
             res.redirect('/pergunta/' + perguntaID)
         })
         .catch((error) => {
