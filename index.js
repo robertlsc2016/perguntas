@@ -1,7 +1,9 @@
 const express = require('express')
 const res = require('express/lib/response')
 const app = express()
+
 let moment = require('moment');
+let tz = require('moment-timezone')
 
 // DATABASES
 const connection = require('./database/database')
@@ -125,7 +127,7 @@ app.post('/salvarpergunta', (req, res) => {
     let description = req.body.description.trim()
     let name = req.body.name.trim()
     let email = req.body.email.trim()
-    let data = moment().format()
+    let data = moment().tz('America/Cuiaba')
 
     console.log(data)
 
