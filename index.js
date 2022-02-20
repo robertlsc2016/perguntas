@@ -158,7 +158,7 @@ app.post('/enviarreposta', (req, res) => {
         body: resposta,
         perguntaID: perguntaID,
         autorResposta: autorResposta,
-        datacriacao : moment().format()
+        datacriacao : moment().tz('America/Cuiaba')
     })
     .then(() => {
 
