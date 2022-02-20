@@ -1,6 +1,7 @@
 const express = require('express')
 const res = require('express/lib/response')
 const app = express()
+let moment = require('moment');
 
 // DATABASES
 const connection = require('./database/database')
@@ -120,21 +121,26 @@ app.get('/pergunta/:id', (req, res) => {
 
 app.post('/salvarpergunta', (req, res) => {
 
-    let titulo = req.body.title
-    let description = req.body.description
-    let name = req.body.name
-    let email = req.body.email
+    let titulo = req.body.title.trim()
+    let description = req.body.description.trim()
+    let name = req.body.name.trim()
+    let email = req.body.email.trim()
+    let data = moment().format()
+
+    console.log(data)
 
     Perguntas.create({
         title: titulo,
         description: description,
         email: email,
-        name: name
+        name: name,
+        datacriacao : data
 
     }).then(() => {
         enviarEmail.notificationQuestion(titulo, description, name )
         res.redirect('/')
     })
+
 })
 
 
@@ -149,7 +155,8 @@ app.post('/enviarreposta', (req, res) => {
     Respostas.create({
         body: resposta,
         perguntaID: perguntaID,
-        autorResposta: autorResposta
+        autorResposta: autorResposta,
+        datacriacao : moment().format()
     })
         .then(() => {
 

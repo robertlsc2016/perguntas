@@ -19,6 +19,10 @@ const Perguntas = connection.define('perguntas',{
     name : {
         type : Sequelize.STRING,
         allowNull : false
+    },
+    datacriacao : {
+        type : Sequelize.STRING,
+        allowNull : false
     }
 }, {})
 

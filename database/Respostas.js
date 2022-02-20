@@ -14,6 +14,10 @@ const Resposta = connection.define('respostas', {
     autorResposta : {
         type : Sequelize.TEXT,
         allowNull : false
+    },
+    datacriacao : {
+        type : Sequelize.STRING,
+        allowNull : false
     }
 }, {})
 
