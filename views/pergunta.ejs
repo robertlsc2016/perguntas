@@ -12,7 +12,9 @@
                     
                     <p  style="right: 0; top:0; padding : 5px 10px 0 0; color: gray; margin: 0; font-size: 0.7rem;">
 
-                        <%=dadosPergunta.createdAt.toISOString().slice(0,10).split('-').reverse().join('/')%>
+                        <%=dadosPergunta.datacriacao.slice(0,10).split('-').reverse().join('/')%> - 
+                        <%=dadosPergunta.datacriacao.slice(11,19)%>
+
                     </p>
                 </div>
 
@@ -35,8 +37,8 @@
 
                         <div class="card border-dark">
                             <p class="position-absolute" style="right: 0; top:0; padding : 5px 10px 0 0; color: gray;">
-                                <%=dadosResposta.createdAt.toISOString().slice(0,10).split('-').reverse().join('/')%> - 
-                                <%=dadosResposta.createdAt.toISOString().slice(11,19)%>
+                                <%=dadosResposta.datacriacao.slice(0,10).split('-').reverse().join('/')%> - 
+                                <%=dadosResposta.datacriacao.slice(11,19)%>
 
                             </p>
 
