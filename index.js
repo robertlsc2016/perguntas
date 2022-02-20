@@ -4,6 +4,7 @@ const app = express()
 
 let moment = require('moment');
 let tz = require('moment-timezone')
+let hora_brasilia = moment().tz('America/Sao_Paulo').format()
 
 // DATABASES
 const connection = require('./database/database')
@@ -127,9 +128,7 @@ app.post('/salvarpergunta', (req, res) => {
     let description = req.body.description.trim()
     let name = req.body.name.trim()
     let email = req.body.email.trim()
-    let data = moment().tz('America/Cuiaba')
-
-    console.log(data)
+    let data = hora_brasilia
 
     Perguntas.create({
         title: titulo,
@@ -158,7 +157,7 @@ app.post('/enviarreposta', (req, res) => {
         body: resposta,
         perguntaID: perguntaID,
         autorResposta: autorResposta,
-        datacriacao : moment().tz('America/Cuiaba')
+        datacriacao : hora_brasilia
     })
     .then(() => {
 
