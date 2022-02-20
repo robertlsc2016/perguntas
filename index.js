@@ -163,7 +163,7 @@ app.post('/enviarreposta', (req, res) => {
             Perguntas.findOne({ raw: true, where: { id: perguntaID } })
                 .then((dados) => {
                     if (dados.email) {
-                        enviarEmail(dados.email, perguntaID)
+                        enviarEmail.main(dados.email, perguntaID)
                     } else {
                         console.log('não possui email cadastrado')
                     }
