@@ -158,18 +158,16 @@ app.post('/enviarreposta', (req, res) => {
         autorResposta: autorResposta,
         datacriacao : moment().format()
     })
-        .then(() => {
+    .then(() => {
 
-            Perguntas.findOne({ raw: true, where: { id: perguntaID } })
-                .then((dados) => {
-                    if (dados.email) {
-                        enviarEmail.main(dados.email, perguntaID)
-                    } else {
-                        console.log('não possui email cadastrado')
-                    }
-
-
-                })
+        Perguntas.findOne({ raw: true, where: { id: perguntaID } })
+            .then((dados) => {
+                if (dados.email) {
+                    enviarEmail.main(dados.email, perguntaID)
+                } else {
+                    console.log('não possui email cadastrado')
+                }
+            })
 
             res.redirect('/pergunta/' + perguntaID)
         })
