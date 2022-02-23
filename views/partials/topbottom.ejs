@@ -1,0 +1,69 @@
+
+
+
+
+<div class="d-flex fixed-bottom justify-content-end" style=" height: 10vh; display: flex; "> 
+
+
+    <a  style="visibility:hidden; margin:  0 15px 15px 0 ; padding: 1%; object-fit: contain; " id="btn-subir" onClick="subir()">
+        <img src="imgs/icon/top.png" alt="" style="width: 100%; height: 100%;">
+
+    </a>
+
+    <a style="visibility:hidden; margin:  0 15px 15px 0 ; padding: 1%; object-fit: contain; " id="btn-descer" onClick="descer()">
+        <img src="imgs/icon/bottom.png" alt="" style="width: 100%; height: 100%;">
+
+        
+    </a>
+
+</div>
+
+
+ <script >
+
+    if((window.screen.availHeight / (document.getElementsByTagName('html')[0].scrollHeight) ) < 1){
+        
+    } else{
+
+
+        setInterval( () => { verificarScrool() }, 100)
+
+
+        function verificarScrool() {
+
+
+            let alturaDaTela = document.getElementsByTagName('html')[0].scrollHeight
+            let alturaScroll = window.scrollY
+            console.log(alturaScroll)
+
+            if(alturaScroll > (alturaDaTela/2) ) {
+
+                document.getElementById("btn-subir").style.display = 'block'
+                document.getElementById("btn-subir").style.visibility = 'visible'
+                document.getElementById("btn-descer").style.display = 'none'        
+            }
+
+            if(alturaScroll < (alturaDaTela/2) ) {
+
+                document.getElementById("btn-descer").style.display = 'block'
+                document.getElementById("btn-descer").style.visibility = 'visible'
+                document.getElementById("btn-subir").style.display = 'none'        
+            }
+
+
+        }
+
+        function subir(){
+            window.scrollTo(0, 0);    
+        }
+
+        function descer(){
+            window.scrollTo(0, document.getElementsByTagName('html')[0].scrollHeight);    
+        }
+
+
+    }
+
+
+
+ </script>
