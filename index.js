@@ -2,16 +2,23 @@ const express = require('express')
 const res = require('express/lib/response')
 const app = express()
 
-let moment = require('moment');
-let tz = require('moment-timezone')
+const moment = require('moment');
+const tz = require('moment-timezone')
+const Swal = require('sweetalert2')
 
-// DATABASES
+// const salvarpergunta = require('./js/salvarpergunta')
+
 const connection = require('./database/database')
 const Perguntas = require('./database/Perguntas')
 const Respostas = require('./database/Respostas')
 
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 const enviarEmail = require('./public/js/enviarEmail')
+
+
+const bodyParser = require('body-parser');
+const req = require('express/lib/request');
+
 
 connection
     .authenticate()
@@ -24,17 +31,15 @@ connection
     })
 
 
-// TRADUZ OS DADOS ENVIADOS PELO FORMULÁRIO EM JS PARA SER USADO NO BACKEND
-const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-
-
-// MOTOR DE HTML - RENDERIZADOR DE HTML
 app.set('view engine', 'ejs')
+// app.set('view engine', 'html');
 
-app.use(express.static('public'))
+// app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'));
+
 
 app.get('/', (req, res) => {
 
@@ -60,7 +65,6 @@ app.get('/', (req, res) => {
     })
 
 })
-
 
 
 
@@ -122,25 +126,36 @@ app.get('/pergunta/:id', (req, res) => {
 })
 
 app.post('/salvarpergunta', (req, res) => {
+
     let hora_brasilia = moment().tz('America/Sao_Paulo').format()
+
     let titulo = req.body.title.trim()
     let description = req.body.description.trim()
     let name = req.body.name.trim()
     let email = req.body.email.trim()
+
 
     Perguntas.create({
         title: titulo,
         description: description,
         email: email,
         name: name,
-        datacriacao : hora_brasilia
+        datacriacao: hora_brasilia
 
     }).then(() => {
-        enviarEmail.notificationQuestion(titulo, description, name )
+        enviarEmail.notificationQuestion(titulo, description, name)
+
+
+
         res.redirect('/')
+    })
+    .catch((error) => {
+        
     })
 
 })
+
+
 
 
 app.post('/enviarreposta', (req, res) => {
@@ -150,24 +165,24 @@ app.post('/enviarreposta', (req, res) => {
     let autorResposta = req.body.autorResposta
     let hora_brasilia = moment().tz('America/Sao_Paulo').format()
 
-    
+
 
     Respostas.create({
         body: resposta,
         perguntaID: perguntaID,
         autorResposta: autorResposta,
-        datacriacao : hora_brasilia
+        datacriacao: hora_brasilia
     })
-    .then(() => {
+        .then(() => {
 
-        Perguntas.findOne({ raw: true, where: { id: perguntaID } })
-            .then((dados) => {
-                if (dados.email) {
-                    enviarEmail.main(dados.email, perguntaID)
-                } else {
-                    console.log('não possui email cadastrado')
-                }
-            })
+            Perguntas.findOne({ raw: true, where: { id: perguntaID } })
+                .then((dados) => {
+                    if (dados.email) {
+                        enviarEmail.main(dados.email, perguntaID)
+                    } else {
+                        console.log('não possui email cadastrado')
+                    }
+                })
 
             res.redirect('/pergunta/' + perguntaID)
         })

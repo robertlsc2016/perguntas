@@ -1,41 +1,101 @@
 <%- include('partials/header') %>
 
-    <body style="margin-top: 10vh;">
 
+
+    <body style="margin-top: 10vh;">
         <%- include ('partials/navbar') %>
+
             <div class="container">
+
                 <div class="card" id="formulario-pergunta">
+
                     <div class="card-header">
                         <h3>Realizar Pergunta</h3>
-
                     </div>
 
                     <div class="card-body">
-                        <form  method="POST" action="/salvarpergunta"> 
+
+                        <form id="form_question" action="/salvarpergunta" method="post">
 
                             <label for="">Título da Pergunta</label>
-                            <input type="text" class="form-control" name="title" placeholder="Título da questão" id="title_question" required>
+                            <input type="text" class="form-control" name="title" placeholder="Título da questão"
+                                id="title_question" required>
                             <br>
 
                             <label for="">Descrição</label>
-                            <textarea placeholder="Escreva sua pergunta aqui" class="form-control" name="description" required></textarea>
+                            <textarea placeholder="Escreva sua pergunta aqui" class="form-control" name="description"
+                                id="description" required></textarea>
                             <br>
 
                             <label for="">Seu Nome</label>
-                            <input type="text" class="form-control" name="name" placeholder="Seu Nome" required>
+                            <input type="text" class="form-control" name="name" placeholder="Seu Nome" id="name"
+                                required>
                             <br>
 
-                            <label for="">Email para notificar respostas (opicional)</label>
-                            <input type="email" class="form-control" name="email" placeholder="exemplo@email.com" >
+                            <label for="">Email para notificar respostas (opcional)</label>
+                            <input type="email" class="form-control" name="email" placeholder="exemplo@email.com">
                             <br>
 
-                            <button class="btn btn-dark">Perguntar</button>
+                            <button class="btn btn-dark" id="send_question" type="button"
+                                onclick="salvarpergunta()">Perguntar</button>
                         </form>
                     </div>
                 </div>
 
             </div>
-            
     </body>
+    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<%- include('partials/footer') %>
+    <script src="../public/js/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+
+    <script src="/public/js/js/bootstrap.js"></script>
+
+    <script>
+
+        function salvarpergunta () {
+
+            let titulo = document.getElementById('title_question')
+            let description = document.getElementById('description')
+            let name = document.getElementById('name')
+
+
+            if (titulo.value.trim().length > 0) {
+
+                if (description.value.trim().length > 0) {
+
+                    if (name.value.trim().length > 0) {
+                        
+                        document.getElementById('form_question').submit()
+
+                    } else {
+                        alertError(name, 'O nome não pode ser vazio ou conter apenas espaços em branco')
+                    }
+                } else {
+                    alertError(description, 'A descrição  não pode ser vazia ou conter apenas espaços em branco')
+                }
+            } else {
+                alertError(titulo, 'O título da pergunta não pode ser vazio ou conter apenas espaços em branco')
+            }
+
+            function alertError(element, msgError){
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: msgError,
+                    timer: 3000,
+                    timerProgressBar: true
+
+                })
+                document.getElementById(`${element.id}`).value = ''
+            }
+
+        }
+    </script>
+
+    </html>
