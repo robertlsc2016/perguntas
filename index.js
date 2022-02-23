@@ -6,7 +6,6 @@ const moment = require('moment');
 const tz = require('moment-timezone')
 const Swal = require('sweetalert2')
 
-// const salvarpergunta = require('./js/salvarpergunta')
 
 const connection = require('./database/database')
 const Perguntas = require('./database/Perguntas')
@@ -35,9 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.set('view engine', 'ejs')
-// app.set('view engine', 'html');
 
-// app.use(express.static('public'))
 app.use(express.static(__dirname + '/public'));
 
 
