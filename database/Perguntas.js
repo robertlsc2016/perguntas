@@ -1,4 +1,3 @@
-// MODEL : REPRESENTAÇÃO DA TABELA DO BANCO NO JS
 
 const { Sequelize } = require('sequelize')
 const connection = require('./database')
