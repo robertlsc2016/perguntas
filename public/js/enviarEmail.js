@@ -70,4 +70,4 @@ async function notificationQuestion(title, description, name) {
 }
 
 
-// module.exports = {main, notificationQuestion}
+module.exports = {main, notificationQuestion}

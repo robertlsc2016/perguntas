@@ -139,7 +139,7 @@ app.post('/salvarpergunta', (req, res) => {
         datacriacao: hora_brasilia
 
     }).then(() => {
-        // enviarEmail.notificationQuestion(titulo, description, name)
+        enviarEmail.notificationQuestion(titulo, description, name)
         res.redirect('/')
     })
     .catch((error) => {
