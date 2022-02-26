@@ -37,26 +37,24 @@
             let alturaDaJanela = document.getElementsByTagName("html")[0].clientHeight
             let alturaAtualDoScroll = window.pageYOffset
 
-            console.log('altura documento '  + alturaDoDocumento)
-            console.log('altura da janela ' + alturaDaJanela)
-            console.log('altura do scroll ' + alturaAtualDoScroll)
 
-            console.log(alturaAtualDoScroll)
+            if(alturaDoDocumento > alturaDaJanela){
+                
+                if(alturaAtualDoScroll == 0 || alturaAtualDoScroll > (alturaDoDocumento/2)  || alturaAtualDoScroll < (alturaDoDocumento/2)   ) {
+                        document.getElementById("btn-descer").style.display = 'block'
+                        document.getElementById("btn-descer").style.visibility = 'visible'
+                        document.getElementById("btn-subir").style.display = 'none'        
+                    }
 
-            if(alturaAtualDoScroll == 0 || alturaAtualDoScroll > (alturaDoDocumento/2)  || alturaAtualDoScroll < (alturaDoDocumento/2)   ) {
+                    if( alturaAtualDoScroll > (alturaDoDocumento*0.4) ) {
+                        document.getElementById("btn-subir").style.display = 'block'
+                        document.getElementById("btn-subir").style.visibility = 'visible'
+                        document.getElementById("btn-descer").style.display = 'none'        
+                    }
 
-                document.getElementById("btn-descer").style.display = 'block'
-                document.getElementById("btn-descer").style.visibility = 'visible'
-                document.getElementById("btn-subir").style.display = 'none'        
+            } else{
+                {}
             }
-
-            if( alturaAtualDoScroll > (alturaDoDocumento*0.4) ) {
-
-                document.getElementById("btn-subir").style.display = 'block'
-                document.getElementById("btn-subir").style.visibility = 'visible'
-                document.getElementById("btn-descer").style.display = 'none'        
-            }
-
 
 
         }
