@@ -37,7 +37,6 @@ app.set('view engine', 'ejs')
 
 app.use(express.static(__dirname + '/public'));
 
-
 app.get('/', (req, res) => {
 
     Perguntas.findAll({
@@ -141,13 +140,10 @@ app.post('/salvarpergunta', (req, res) => {
 
     }).then(() => {
         enviarEmail.notificationQuestion(titulo, description, name)
-
-
-
         res.redirect('/')
     })
     .catch((error) => {
-        
+        console.log(error)
     })
 
 })
