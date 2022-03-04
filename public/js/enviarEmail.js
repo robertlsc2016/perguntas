@@ -1,7 +1,7 @@
 var nodemailer = require('nodemailer');
 
 async function main(emailUser, id) {
-  let url = `https://guiaspergunta.herokuapp.com/pergunta/${id}`
+  let url = `https://perguntastk.herokuapp.com/pergunta/${id}`
   let testAccount = await nodemailer.createTestAccount();
 
   let transporter = nodemailer.createTransport({
@@ -55,7 +55,7 @@ async function notificationQuestion(title, description, name) {
     `
       <h2>Sr. Robert, fizeram uma pergunta. Que tal verificar?</h2>
       <br>
-      <a href="https://guiaspergunta.herokuapp.com/" >https://guiaspergunta.herokuapp.com/</a>
+      <a href="https://perguntastk.herokuapp.com/" >https://perguntastk.herokuapp.com/</a>
       <hr>
       <div>
         <h3>Título : ${title}<h3>
